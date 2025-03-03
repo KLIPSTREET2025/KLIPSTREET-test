@@ -1,0 +1,146 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KlipStreet - Creator Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0D0D0D;
+            color: #FFFFFF;
+            margin: 0;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .dashboard-container {
+            max-width: 900px;
+            margin: auto;
+            background: #1A1A1A;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .button {
+            background-color: #0056b3;
+            color: white;
+            padding: 12px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            margin-top: 10px;
+        }
+        .button:hover {
+            background-color: #003d82;
+        }
+        .view-toggle {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            padding: 10px;
+            background: #222;
+            border-radius: 8px;
+        }
+        .project-list, .project-grid {
+            margin-top: 20px;
+            padding: 10px;
+            background: #222;
+            border-radius: 8px;
+        }
+        .project-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        .project-item {
+            background-color: #333;
+            padding: 10px;
+            border-radius: 8px;
+            width: 150px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .project-item img {
+            width: 100%;
+            border-radius: 8px;
+        }
+        .project-list .project-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid #333;
+            align-items: center;
+        }
+        .project-list .project-item:last-child {
+            border-bottom: none;
+        }
+        .storage-info {
+            margin-top: 20px;
+            padding: 10px;
+            background: #333;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .notification-panel {
+            margin-top: 20px;
+            padding: 10px;
+            background: #222;
+            border-radius: 8px;
+        }
+    </style>
+    <script>
+        function toggleView(viewType) {
+            document.getElementById('grid-view').style.display = viewType === 'grid' ? 'flex' : 'none';
+            document.getElementById('list-view').style.display = viewType === 'list' ? 'block' : 'none';
+        }
+    </script>
+</head>
+<body>
+    <div class="header">Creator Dashboard</div>
+
+    <div class="dashboard-container">
+        <button class="button" onclick="alert('Start New Project')">+ Start New Project</button>
+
+        <div class="view-toggle">
+            <button class="button" onclick="toggleView('grid')">Thumbnail View</button>
+            <button class="button" onclick="toggleView('list')">List View</button>
+        </div>
+
+        <div id="grid-view" class="project-grid" style="display: flex;">
+            <div class="project-item" onclick="alert('Open Project 1')">
+                <img src="https://via.placeholder.com/150" alt="Project 1">
+                <p>🏡 Project 1</p>
+            </div>
+            <div class="project-item" onclick="alert('Open Project 2')">
+                <img src="https://via.placeholder.com/150" alt="Project 2">
+                <p>🏡 Project 2</p>
+            </div>
+        </div>
+
+        <div id="list-view" class="project-list" style="display: none;">
+            <h3>My Projects</h3>
+            <div class="project-item">🏡 Project 1 - Uploaded: 20 images <button class="button" onclick="alert('Assign Editor')">Assign Editor</button></div>
+            <div class="project-item">🏡 Project 2 - Uploaded: 15 images <button class="button" onclick="alert('Assign Editor')">Assign Editor</button></div>
+        </div>
+
+        <div class="storage-info">
+            <strong>Storage Used:</strong> 500MB of 2GB
+        </div>
+
+        <div class="notification-panel">
+            <h3>Notifications</h3>
+            <p>📢 Editor John Doe has completed your edits.</p>
+            <p>📢 Editor Jane Smith accepted your project.</p>
+        </div>
+    </div>
+</body>
+</html>

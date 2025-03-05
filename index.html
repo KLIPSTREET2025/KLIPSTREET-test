@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KlipStreet - Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0D0D0D;
+            color: #FFFFFF;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .container {
+            max-width: 400px;
+            background: #1A1A1A;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        .header {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+            color: gold;
+            border: 2px solid gold;
+            background: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .button:hover {
+            background-color: rgba(255, 215, 0, 0.2);
+        }
+    </style>
+    <script>
+        function redirectToDashboard(userType) {
+            if (userType === 'creator') {
+                window.location.href = 'creator_dashboard.html';
+            } else if (userType === 'editor') {
+                window.location.href = 'editor_dashboard.html';
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">Welcome to KlipStreet</div>
+        <p>Select your login type:</p>
+        <button class="button" onclick="redirectToDashboard('creator')">Login as Creator</button>
+        <button class="button" onclick="redirectToDashboard('editor')">Login as Editor</button>
+    </div>
+
+</body>
+</html>

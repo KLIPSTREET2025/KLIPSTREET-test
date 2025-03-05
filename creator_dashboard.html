@@ -1,0 +1,242 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KlipStreet - Creator Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0D0D0D;
+            color: #FFFFFF;
+            margin: 0;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .dashboard-container {
+            max-width: 900px;
+            margin: auto;
+            background: #1A1A1A;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .section {
+            margin-top: 20px;
+            padding: 15px;
+            background: #222;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .section h3 {
+            margin: 0;
+            padding: 10px;
+            background: #333;
+            border-radius: 8px;
+            display: inline-block;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        .separator {
+            width: 100%;
+            height: 2px;
+            background-color: gold;
+            margin: 15px 0;
+            border-radius: 1px;
+        }
+        .button {
+            background-color: #0056b3;
+            color: white;
+            padding: 8px 12px;
+            font-size: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            margin-right: 5px;
+        }
+        .button:hover {
+            background-color: #003d82;
+        }
+        .new-order-button {
+            background-color: #caa500; /* Slightly darker gold */
+            color: black;
+            font-weight: bold;
+        }
+        .new-order-button:hover {
+            background-color: #b89500;
+        }
+        .delete-button {
+            background-color: red;
+            color: white;
+            padding: 8px 12px;
+            font-size: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .delete-button:hover {
+            background-color: darkred;
+        }
+        .sortable th {
+            cursor: pointer;
+            background-color: #444;
+        }
+        .sortable th:hover {
+            background-color: #666;
+        }
+        .project-table, .notification-table, .order-history-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .project-table th, .notification-table th, .order-history-table th,
+        .project-table td, .notification-table td, .order-history-table td {
+            border-bottom: 1px solid #333;
+            padding: 10px;
+            text-align: left;
+        }
+        .project-table td, .notification-table td, .order-history-table td {
+            background-color: #333;
+        }
+    </style>
+    <script>
+        function deleteNotification(notificationId) {
+            let notificationElement = document.getElementById(notificationId);
+            notificationElement.remove();
+        }
+
+        function deleteProject(projectId) {
+            let projectElement = document.getElementById(projectId);
+            if (confirm("Are you sure you want to delete this project? This action cannot be undone.")) {
+                projectElement.remove();
+            }
+        }
+
+        function sortTable(tableId, colIndex) {
+            let table = document.getElementById(tableId);
+            let rows = Array.from(table.rows).slice(1);
+            let ascending = table.getAttribute("data-sort-asc") === "true";
+
+            rows.sort((a, b) => {
+                let cellA = a.cells[colIndex].innerText.toLowerCase();
+                let cellB = b.cells[colIndex].innerText.toLowerCase();
+
+                if (!isNaN(cellA) && !isNaN(cellB)) {
+                    return ascending ? cellA - cellB : cellB - cellA;
+                }
+                return ascending ? cellA.localeCompare(cellB) : cellB.localeCompare(cellA);
+            });
+
+            rows.forEach(row => table.appendChild(row));
+            table.setAttribute("data-sort-asc", !ascending);
+        }
+    </script>
+</head>
+<body>
+    <div class="header">Creator Dashboard</div>
+
+    <div class="dashboard-container">
+
+        <div class="section">
+            <div class="section-header">
+                <h3>My Projects</h3>
+                <button class="button new-order-button" onclick="alert('Start New Order')">Start New Order</button>
+            </div>
+            <table class="project-table sortable" id="projectsTable" data-sort-asc="true">
+                <tr>
+                    <th onclick="sortTable('projectsTable', 0)">Project Name</th>
+                    <th onclick="sortTable('projectsTable', 1)">Date</th>
+                    <th onclick="sortTable('projectsTable', 2)">Services</th>
+                    <th onclick="sortTable('projectsTable', 3)">Status</th>
+                    <th onclick="sortTable('projectsTable', 4)">Editor</th>
+                    <th onclick="sortTable('projectsTable', 5)">Total</th>
+                    <th>Actions</th>
+                </tr>
+                <tr id="project1">
+                    <td>📷 Home Listing 1</td>
+                    <td>03/10/2025</td>
+                    <td>HDR Editing</td>
+                    <td>In Progress</td>
+                    <td>Michael Smith</td>
+                    <td>$48.00</td>
+                    <td>
+                        <button class="button" onclick="alert('Open Project 1')">Open</button>
+                        <button class="delete-button" onclick="deleteProject('project1')">Delete</button>
+                    </td>
+                </tr>
+                <tr id="project2">
+                    <td>📷 Home Listing 2</td>
+                    <td>03/12/2025</td>
+                    <td>Virtual Staging</td>
+                    <td>Pending</td>
+                    <td>Alice Johnson</td>
+                    <td>$72.00</td>
+                    <td>
+                        <button class="button" onclick="alert('Open Project 2')">Open</button>
+                        <button class="delete-button" onclick="deleteProject('project2')">Delete</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="separator"></div>
+
+        <div class="section">
+            <h3>Notifications</h3>
+            <table class="notification-table">
+                <tr>
+                    <th>Message</th>
+                    <th>Date & Time</th>
+                    <th>Actions</th>
+                </tr>
+                <tr id="notification1">
+                    <td>📢 Your project has been completed by Michael Smith.</td>
+                    <td>03/10/2025 - 14:30</td>
+                    <td><button class="button" onclick="deleteNotification('notification1')">X</button></td>
+                </tr>
+                <tr id="notification2">
+                    <td>📢 New message from Alice Johnson regarding edits.</td>
+                    <td>03/11/2025 - 15:00</td>
+                    <td><button class="button" onclick="deleteNotification('notification2')">X</button></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="separator"></div>
+
+        <div class="section">
+            <h3>Order History</h3>
+            <table class="order-history-table sortable" id="orderHistoryTable" data-sort-asc="true">
+                <tr>
+                    <th onclick="sortTable('orderHistoryTable', 0)">Date</th>
+                    <th onclick="sortTable('orderHistoryTable', 1)">Order #</th>
+                    <th onclick="sortTable('orderHistoryTable', 2)">Editor</th>
+                    <th onclick="sortTable('orderHistoryTable', 3)">Amount</th>
+                    <th onclick="sortTable('orderHistoryTable', 4)">Status</th>
+                </tr>
+                <tr>
+                    <td>03/08/2025</td>
+                    <td>#B98765</td>
+                    <td>Michael Smith</td>
+                    <td>$48.00</td>
+                    <td>Paid</td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+</body>
+</html>
